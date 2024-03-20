@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919245946536",
+    "project_id": "orphanage-6412e",
+    "storage_bucket": "orphanage-6412e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919245946536:android:799837ee525ab942fecc9d",
+        "android_client_info": {
+          "package_name": "com.example.carring_crates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBotPA7p2a_lj7dxcLXo3lkEN7v1yVGtvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
