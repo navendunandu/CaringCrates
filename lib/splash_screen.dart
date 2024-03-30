@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       home: Scaffold(
         body: Center(
             child: Text(
-          'carring CRATES',
+          'CARING CRATES',
           style: TextStyle(
               fontSize: 45.0,
               fontStyle: FontStyle.italic,

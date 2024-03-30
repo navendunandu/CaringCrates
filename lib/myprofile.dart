@@ -41,7 +41,7 @@ class _MyProfileState extends State<MyProfile> {
           email = doc['user_email'] ?? 'Error Loading Data';
           contact = doc['user_contact'] ?? 'Error Loading Data';
           address = doc['user_address'] ?? 'Error Loading Data';
-          image = doc.data().containsKey('user_photo') ? doc['user_photo'] : '';
+          image = doc['user_photo'];
         });
       } else {
         setState(() {
@@ -67,11 +67,12 @@ class _MyProfileState extends State<MyProfile> {
           child: ListView(
             children: [
               CircleAvatar(
-                radius: 50,
+                radius: 75,
                 backgroundColor: const Color(0xff4c505b),
                 backgroundImage: image.isNotEmpty
                     ? NetworkImage(image) as ImageProvider
                     : const AssetImage('assets/pic_11.png'),
+
               ),
               const SizedBox(
                 height: 50,

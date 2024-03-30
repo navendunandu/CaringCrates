@@ -45,8 +45,16 @@ class _DonatenowState extends State<DonateNow> {
   }
 
   Future<void> donate() async {
-    final user = FirebaseAuth.instance.currentUser;
+   final user = FirebaseAuth.instance.currentUser;
     final userId = user?.uid;
+    
+
+    QuerySnapshot<Map<String, dynamic>> studentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('tbl_userregistration')
+            .where('User_id', isEqualTo: userId)
+            .get();
+            String documentId = studentSnapshot.docs.first.id;
     final DateTime now = DateTime.now();
     final String formattedDate = '${now.year}-${now.month}-${now.day}';
     try {
@@ -56,7 +64,7 @@ class _DonatenowState extends State<DonateNow> {
         'title': _titleController.text,
         'donation_status': 0,
         'orphnage_id': '',
-        'user_id': userId,
+        'user_id': documentId,
         'donationtype_id': _selectedDonation,
       };
       await db

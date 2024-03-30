@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:carring_crates/complaints.dart';
 import 'package:carring_crates/donatenow.dart';
@@ -8,7 +7,6 @@ import 'package:carring_crates/myprofile.dart';
 import 'package:carring_crates/myrequest.dart';
 import 'package:carring_crates/orphanagerequest.dart';
 import 'package:carring_crates/postcomplaint.dart';
-import 'package:carring_crates/sendrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -78,29 +76,11 @@ class _DashboardState extends State<Dashboard> {
               },
             ),
             ListTile(
-              title: const Text('Complaint'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ComplaintScreen()),
-                );
-              },
-            ),
-            ListTile(
               title: const Text('Feedback'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const FeedbackScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('My Complaints'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ComplaintsPage()),
                 );
               },
             ),
@@ -122,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
             borderRadius: BorderRadius.circular(20.0)),
         child: ListView(children: [
           const Text(
-            'Carring Crates',
+            'Caring Crates',
             style: TextStyle(fontSize: 45, fontWeight: FontWeight.w800),
           ),
           const SizedBox(
@@ -171,7 +151,7 @@ class _DashboardState extends State<Dashboard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DonationsPage()));
+                              builder: (context) => const DonationsPage()));
                     },
                     child: Container(
                       color: Colors.cyan,

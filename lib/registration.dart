@@ -127,22 +127,20 @@ class RegistrationState extends State<Registration> {
           password: _passwordController.text,
         );
 
-        if (userCredential != null) {
-          await _storeUserData(userCredential.user!.uid);
-          Fluttertoast.showToast(
-            msg: "Registration Successful",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-          );
-          _progressDialog.hide();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const Login()),
-          );
-        }
-      } catch (e) {
+        await _storeUserData(userCredential.user!.uid);
+        Fluttertoast.showToast(
+          msg: "Registration Successful",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        _progressDialog.hide();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+            } catch (e) {
         _progressDialog.hide();
         Fluttertoast.showToast(
           msg: "Registration Failed",
@@ -185,17 +183,17 @@ class RegistrationState extends State<Registration> {
 
         String imageUrl = await taskSnapshot.ref.getDownloadURL();
         Map<String, dynamic> newData = {
-          'imageUrl': imageUrl,
+          'user_photo': imageUrl,
         };
         await FirebaseFirestore.instance
             .collection('tbl_userregistration')
             .where('User_id', isEqualTo: userId) // Filtering by user_id
             .get()
             .then((QuerySnapshot querySnapshot) {
-          querySnapshot.docs.forEach((doc) {
+          for (var doc in querySnapshot.docs) {
             // For each document matching the query, update the data
             doc.reference.update(newData);
-          });
+          }
         }).catchError((error) {
           print("Error updating user: $error");
         });
@@ -217,7 +215,7 @@ class RegistrationState extends State<Registration> {
         // Step 3: Get download URL of the uploaded file
         String fileUrl = await fileTaskSnapshot.ref.getDownloadURL();
         Map<String, dynamic> proofData = {
-          'proofUrl': fileUrl,
+          'user_proof': fileUrl,
         };
         // Step 4: Update user's collection in Firestore with the file URL
         await FirebaseFirestore.instance
@@ -225,10 +223,10 @@ class RegistrationState extends State<Registration> {
             .where('user_id', isEqualTo: userId) // Filtering by user_id
             .get()
             .then((QuerySnapshot querySnapshot) {
-          querySnapshot.docs.forEach((doc) {
+          for (var doc in querySnapshot.docs) {
             // For each document matching the query, update the data
             doc.reference.update(proofData);
-          });
+          }
         }).catchError((error) {
           print("Error updating user: $error");
         });
@@ -460,13 +458,13 @@ class RegistrationState extends State<Registration> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: register,
-                  child: const Text('Register'),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                   ),
+                  child: const Text('Register'),
                 ),
               ],
             ),

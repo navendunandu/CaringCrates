@@ -66,7 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   if (!_emailRegex.hasMatch(value!)) {
                     return 'Please enter a valid email address';
                   }
-                  if (value!.isEmpty) {
+                  if (value.isEmpty) {
                     return 'Please enter your email';
                   }
 

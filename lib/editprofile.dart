@@ -11,7 +11,6 @@ class Editprofile extends StatefulWidget {
 
 class EditprofileState extends State<Editprofile> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -38,7 +37,6 @@ class EditprofileState extends State<Editprofile> {
           final doc = querySnapshot.docs.first;
           setState(() {
             _nameController.text = doc['user_name'] ?? '';
-            _emailController.text = doc['user_email'] ?? '';
             _contactController.text = doc['user_contact'] ?? '';
             _addressController.text = doc['user_address'] ?? '';
             _isLoading = false;
@@ -82,7 +80,6 @@ class EditprofileState extends State<Editprofile> {
                   .doc(docId)
                   .update({
                 'user_name': _nameController.text,
-                'user_email': _emailController.text,
                 'user_contact': _contactController.text,
                 'user_address': _addressController.text,
               });
@@ -135,71 +132,61 @@ class EditprofileState extends State<Editprofile> {
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const Text('User editprofile'),
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter Name',
+          : SafeArea(
+            child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const Text('User editprofile'),
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Name',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter Email',
+                      
+                      TextFormField(
+                        controller: _contactController,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Contact',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your contact';
+                          }
+                          // Add additional contact validation if needed
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        // Add additional email validation if needed
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _contactController,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter Contact',
+                      TextFormField(
+                        controller: _addressController,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Address',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your address';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your contact';
-                        }
-                        // Add additional contact validation if needed
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _addressController,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter Address',
+                      ElevatedButton(
+                        onPressed: editProfile,
+                        child: const Text('Save'),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your address';
-                        }
-                        return null;
-                      },
-                    ),
-                    ElevatedButton(
-                      onPressed: editProfile,
-                      child: const Text('Save'),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+          ),
     );
   }
 }
